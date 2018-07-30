@@ -1,15 +1,14 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Text } from 'react-native';
 import { View, StyleSheet } from 'react-native';
 import Appbar from './components/Appbar/Appbar';
 
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
     return (
-      <View style={styles.actionArea}>
+      <View>
         <Appbar />
-        <Text>Hello !</Text>
       </View>
     );
   }

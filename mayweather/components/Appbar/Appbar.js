@@ -1,15 +1,17 @@
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text} from "react-native";
+import React, { Component } from 'react';
+import { Container, Header, Content, Input, Item } from 'native-base';
 
-export default class Appbar extends Component{
-
-    constructor(props){
-        super(props);
-        console.log(Platform.OS);
-    }
-    render(){
-        return(
-            <Text>Appbar</Text>
-        )
-    }
+export default class Appbar extends Component {
+  render() {
+    return (
+      <Container>
+        <Header />
+        <Content>
+          <Item regular>
+            <Input placeholder='Type City Name ...' />
+          </Item>
+        </Content>
+      </Container>
+    );
+  }
 }
