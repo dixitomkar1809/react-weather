@@ -14,13 +14,16 @@ export default class App extends React.Component {
     isLoading: false,
     temperature: 0,
     weatherCondition: null,
-    error: null
+    error: null,
+    locationName: null
   };
 
   componentDidMount() {
+    console.log(new Date().getHours());
     navigator.geolocation.getCurrentPosition(
       position => {
         this.fetchWeahter(position.coords.latitude, position.coords.longitude);
+        this.findLocationName(position.coords.latitude, position.coords.longitude);
       },
       error => {
         this.setState({
@@ -30,13 +33,22 @@ export default class App extends React.Component {
     );
   }
 
+  findLocationName(lat, lon){
+    fetch(`http://www.mapquestapi.com/geocoding/v1/reverse?key=MnWRVdOuu3FVpOqQbF8QmhnxroFd0qnF&location=${lat},${lon}&includeRoadMetadata=true&includeNearestIntersection=true`)
+    .then(res => res.json())
+    .then(json => {
+      this.setState({
+        locationName : json.results[0].locations[0].adminArea5
+      })
+    });
+  }
+
   fetchWeahter(lat, lon) {
     fetch(
       `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${API_KEY}&units=metric`
     )
       .then(res => res.json())
       .then(json => {
-        // console.log(json);
         this.setState({
           temperature: json.main.temp,
           weatherCondition: json.weather[0].main,
@@ -46,15 +58,15 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { isLoading, weatherCondition, temperature } = this.state;
+    const { isLoading, weatherCondition, temperature, locationName } = this.state;
     return (
       <View style={styles.container}>
-        {isLoading ? (
+        {!isLoading ? (
           <View style={styles.loadingContainer}>
             <Text style={styles.loadingText}>Fetching The Weather</Text>
           </View>
         ) : (
-          <Weather weather="Hello" temperature="35" />
+          <Weather weather={weatherCondition} temperature={temperature} city={locationName}/>
         )}
       </View>
     );
