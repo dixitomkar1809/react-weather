@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { weatherConditions } from '../../utils/WeatherCondition';
-// weatherConditions
+import Appbar from '../Appbar/Appbar';
 
 const Weather = ({ weather, temperature, city }) => {
     return (
@@ -16,6 +16,7 @@ const Weather = ({ weather, temperature, city }) => {
           <Text style={styles.title}>{weatherConditions[weather].title}</Text>
           <Text style={styles.subtitle}>{weatherConditions[weather].subtitle}</Text>
         </View>
+        <Appbar />
       </View>
     );
 };

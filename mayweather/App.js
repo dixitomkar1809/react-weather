@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Animated } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 
 import { DangerZone } from 'expo';
 // const { Lottie } = DangerZone;
@@ -7,6 +7,7 @@ import { DangerZone } from 'expo';
 import { API_KEY } from './utils/WeatherAPIKey';
 
 import Weather from './components/Weather/Weather';
+import Appbar from './components/Appbar/Appbar';
 
 export default class App extends React.Component {
   
@@ -19,7 +20,13 @@ export default class App extends React.Component {
   };
 
   componentDidMount() {
-    console.log(new Date().getHours());
+    const time = new Date().getHours();
+    if(time > 20){
+      console.log('i tsnight time');
+    }
+    else{
+      console.log('it day time')
+    }
     navigator.geolocation.getCurrentPosition(
       position => {
         this.fetchWeahter(position.coords.latitude, position.coords.longitude);
@@ -60,15 +67,16 @@ export default class App extends React.Component {
   render() {
     const { isLoading, weatherCondition, temperature, locationName } = this.state;
     return (
-      <View style={styles.container}>
-        {!isLoading ? (
-          <View style={styles.loadingContainer}>
-            <Text style={styles.loadingText}>Fetching The Weather</Text>
-          </View>
-        ) : (
-          <Weather weather={weatherCondition} temperature={temperature} city={locationName}/>
-        )}
-      </View>
+        <View style={styles.container}>
+        
+          {!isLoading ? (
+            <View style={styles.loadingContainer}>
+              <Text style={styles.loadingText}>Fetching The Weather</Text>
+            </View>
+          ) : (
+            <Weather weather={weatherCondition} temperature={temperature} city={locationName}/>
+          )}
+        </View>
     );
   }
 }
