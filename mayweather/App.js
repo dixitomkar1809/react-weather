@@ -20,13 +20,6 @@ export default class App extends React.Component {
   };
 
   componentDidMount() {
-    const time = new Date().getHours();
-    if(time > 20){
-      console.log('i tsnight time');
-    }
-    else{
-      console.log('it day time')
-    }
     navigator.geolocation.getCurrentPosition(
       position => {
         this.fetchWeahter(position.coords.latitude, position.coords.longitude);

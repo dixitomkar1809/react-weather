@@ -5,7 +5,7 @@ import { weatherConditions } from '../../utils/WeatherCondition';
 import Appbar from '../Appbar/Appbar';
 
 const Weather = ({ weather, temperature, city }) => {
-    return (
+  return (
       <View style={[styles.weatherContainer, {backgroundColor: weatherConditions[weather].color}]}>
         <View style={styles.headerContainer}>
           <MaterialCommunityIcons size={48} name="weather-sunny" color={'#fff'} />
@@ -16,7 +16,6 @@ const Weather = ({ weather, temperature, city }) => {
           <Text style={styles.title}>{weatherConditions[weather].title}</Text>
           <Text style={styles.subtitle}>{weatherConditions[weather].subtitle}</Text>
         </View>
-        <Appbar />
       </View>
     );
 };
